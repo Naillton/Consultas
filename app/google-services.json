@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "319873081872",
+    "project_id": "consultas-5f623",
+    "storage_bucket": "consultas-5f623.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:319873081872:android:98172254419b041c3ca095",
+        "android_client_info": {
+          "package_name": "com.nailton.consultas"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyApz1jjyOp61_jfQ0AKZzzSgs2zA4vSy0g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

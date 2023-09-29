@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/constraintLogin"
+        tools:context=".MainActivity"
+        >
+
+        <EditText
+            android:id="@+id/edtTextEmail"
+            android:layout_width="340dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="196dp"
+            android:autofillHints="emailAddress"
+            android:hint="Enter your Email"
+            android:inputType="textEmailAddress"
+            android:paddingStart="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.507"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints,RtlSymmetry" />
+
+        <EditText
+            android:id="@+id/edtTextPass"
+            android:layout_width="340dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            android:autofillHints="password"
+            android:hint="Enter your password"
+            android:inputType="textPassword"
+            android:paddingStart="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edtTextEmail" />
+
+        <Button
+            android:id="@+id/btnLogin"
+            android:layout_width="112dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="60dp"
+            android:backgroundTint="@color/purple"
+            android:text="Login"
+            android:textAllCaps="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edtTextPass" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

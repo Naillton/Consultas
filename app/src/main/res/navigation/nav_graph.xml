@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/loginFragment">
+
+    <fragment
+        android:id="@+id/medicoFragment"
+        android:name="com.nailton.consultas.screens.MedicoFragment"
+        android:label="fragment_medico"
+        tools:layout="@layout/fragment_medico" >
+        <action
+            android:id="@+id/action_medicoFragment_to_perfilMedicoFragment"
+            app:destination="@id/perfilMedicoFragment" />
+        <action
+            android:id="@+id/action_medicoFragment_to_novaConsultaFragment"
+            app:destination="@id/novaConsultaFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/pacienteFragment"
+        android:name="com.nailton.consultas.screens.pacienteFragment"
+        android:label="fragment_paciente"
+        tools:layout="@layout/fragment_paciente" >
+        <action
+            android:id="@+id/action_pacienteFragment_to_perfilPacienteFragment"
+            app:destination="@id/perfilPacienteFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/perfilPacienteFragment"
+        android:name="com.nailton.consultas.screens.PerfilPacienteFragment"
+        android:label="fragment_perfil_paciente"
+        tools:layout="@layout/fragment_perfil_paciente" />
+    <fragment
+        android:id="@+id/perfilMedicoFragment"
+        android:name="com.nailton.consultas.screens.PerfilMedicoFragment"
+        android:label="fragment_perfil_medico"
+        tools:layout="@layout/fragment_perfil_medico" />
+    <fragment
+        android:id="@+id/novaConsultaFragment"
+        android:name="com.nailton.consultas.screens.NovaConsultaFragment"
+        android:label="fragment_nova_consulta"
+        tools:layout="@layout/fragment_nova_consulta" />
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.nailton.consultas.screens.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_medicoFragment"
+            app:destination="@id/medicoFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_pacienteFragment"
+            app:destination="@id/pacienteFragment" />
+    </fragment>
+</navigation>
