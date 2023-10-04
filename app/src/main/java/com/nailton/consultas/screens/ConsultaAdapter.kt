@@ -1,5 +1,7 @@
 package com.nailton.consultas.screens
 
+import android.graphics.Color
+import android.graphics.drawable.GradientDrawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -9,7 +11,7 @@ import com.nailton.consultas.data.Consulta
 import com.nailton.consultas.databinding.CardConsultaBinding
 
 class ConsultaAdapter: RecyclerView.Adapter<ConsultaAdapter.MyViewHolder>(){
-    class MyViewHolder(private var binding: CardConsultaBinding): RecyclerView.ViewHolder(binding.root) {
+    class MyViewHolder(var binding: CardConsultaBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(consulta: Consulta) {
             binding.consulta = consulta
         }
@@ -41,6 +43,16 @@ class ConsultaAdapter: RecyclerView.Adapter<ConsultaAdapter.MyViewHolder>(){
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val consulta: Consulta = consultaList[position]
+        holder.binding.apply {
+            val gradientDrawable = GradientDrawable(
+                GradientDrawable.Orientation.TR_BL,
+                intArrayOf(
+                    Color.parseColor("#39cb61"),
+                    Color.parseColor("#45eca3"))
+            );
+            gradientDrawable.cornerRadius = 0f;
+            constraintCard.background = gradientDrawable
+        }
         holder.bind(consulta)
     }
 }

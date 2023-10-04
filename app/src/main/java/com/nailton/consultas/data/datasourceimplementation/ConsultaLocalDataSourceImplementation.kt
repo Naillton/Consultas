@@ -1,5 +1,6 @@
 package com.nailton.consultas.data.datasourceimplementation
 
+import android.util.Log
 import com.nailton.consultas.data.Consulta
 import com.nailton.consultas.data.datasource.ConsultaLocalDataSource
 import com.nailton.consultas.data.db.ConsultaDao

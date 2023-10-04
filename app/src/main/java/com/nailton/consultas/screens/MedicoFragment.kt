@@ -1,15 +1,19 @@
 package com.nailton.consultas.screens
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.nailton.consultas.R
 import com.nailton.consultas.databinding.FragmentMedicoBinding
 import com.nailton.consultas.presentation.configmodel.MyViewModel
@@ -24,6 +28,7 @@ class MedicoFragment : Fragment() {
     private lateinit var viewModel: MyViewModel
     private var _binding: FragmentMedicoBinding? = null
     private val binding get() = _binding!!
+    private lateinit var consultaAdapter: ConsultaAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,7 +57,32 @@ class MedicoFragment : Fragment() {
                 outApplication()
             }
         }
+        getMovies()
         return binding.root
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private fun getMovies() {
+        binding.apply {
+            recyclerView.layoutManager = LinearLayoutManager(context)
+            val result = viewModel.getConsultas()
+            val consultaAdapter = ConsultaAdapter()
+            recyclerView.adapter = consultaAdapter
+            progressBar.visibility = View.VISIBLE
+            result.observe(viewLifecycleOwner) {
+                if (it != null) {
+                    consultaAdapter.setList(it)
+                    consultaAdapter.notifyDataSetChanged()
+                    progressBar.visibility = View.GONE
+                } else {
+                    Toast.makeText(
+                        context,
+                        "Sem consultas",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
+        }
     }
 
     private fun navigateToCreateQuery() {

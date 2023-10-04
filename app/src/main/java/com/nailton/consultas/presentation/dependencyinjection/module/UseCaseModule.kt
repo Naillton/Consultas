@@ -1,6 +1,7 @@
 package com.nailton.consultas.presentation.dependencyinjection.module
 
 import com.nailton.consultas.domain.repository.ConsultaRepository
+import com.nailton.consultas.domain.usecases.CreateQueryUseCase
 import com.nailton.consultas.domain.usecases.GetConsultaUseCase
 import com.nailton.consultas.domain.usecases.LoginUseCase
 import com.nailton.consultas.domain.usecases.OutApplicationUseCase
@@ -34,5 +35,10 @@ class UseCaseModule {
     @Provides
     fun outUseCase(consultaRepository: ConsultaRepository): OutApplicationUseCase {
         return OutApplicationUseCase(consultaRepository)
+    }
+
+    @Provides
+    fun createUseCase(consultaRepository: ConsultaRepository): CreateQueryUseCase {
+        return CreateQueryUseCase(consultaRepository)
     }
 }

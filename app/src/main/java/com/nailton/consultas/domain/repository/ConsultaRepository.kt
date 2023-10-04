@@ -12,4 +12,10 @@ interface ConsultaRepository {
     suspend fun login(email: String, password: String): Boolean?
     suspend fun persistLogin(): FirebaseUser?
     suspend fun outApplication(): FirebaseAuth?
+    suspend fun createQuery(
+        pacienteEmail: String,
+        pacienteNome: String,
+        titulo: String,
+        descricao: String,
+    ): Boolean?
 }

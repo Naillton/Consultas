@@ -2,6 +2,7 @@ package com.nailton.consultas.presentation.configmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.nailton.consultas.domain.usecases.CreateQueryUseCase
 import com.nailton.consultas.domain.usecases.GetConsultaUseCase
 import com.nailton.consultas.domain.usecases.LoginUseCase
 import com.nailton.consultas.domain.usecases.OutApplicationUseCase
@@ -15,7 +16,8 @@ class ViewModelFactory(
     private val updateConsultasUseCase: UpdateConsultasUseCase,
     private val loginUseCase: LoginUseCase,
     private val persistUseCase: PersistUseCase,
-    private val outApplicationUseCase: OutApplicationUseCase
+    private val outApplicationUseCase: OutApplicationUseCase,
+    private val createQueryUseCase: CreateQueryUseCase
 ): ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(MyViewModel::class.java)) {
@@ -24,7 +26,8 @@ class ViewModelFactory(
                 updateConsultasUseCase,
                 loginUseCase,
                 persistUseCase,
-                outApplicationUseCase) as T
+                outApplicationUseCase,
+                createQueryUseCase) as T
         }
         throw IllegalArgumentException("View Model not found")
     }

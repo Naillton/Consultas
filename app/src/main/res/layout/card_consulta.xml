@@ -13,59 +13,60 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
+        android:id="@+id/constraintCard"
         app:cardCornerRadius="8dp"
-        app:cardUseCompatPadding="true">
+        app:cardUseCompatPadding="true"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:padding="10dp"
             tools:ignore="ExtraText">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@{consulta.titulo}"
-                android:paddingTop="6dp"
+                android:padding="10dp"
                 android:textSize="20sp"
                 android:textAllCaps="true"
                 android:textStyle="bold"
-                android:textAlignment="center"
                 />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="12dp"
+                android:padding="10dp"
                 android:text="@{`Email Medico: `+consulta.email}"
-                android:textSize="20sp"
+                android:textSize="14sp"
                 android:textAllCaps="true"
                 android:textStyle="bold"
                 />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="12dp"
+                android:padding="10dp"
                 android:text="@{`Email Paciente: `+consulta.pacienteEmail}"
-                android:textSize="20sp"
+                android:textSize="14sp"
                 android:textAllCaps="true"
                 android:textStyle="bold"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="12dp"
+                android:padding="10dp"
                 android:text="@{`Nome Paciente: `+consulta.pacienteNome}"
-                android:textSize="20sp"
+                android:textSize="14sp"
                 android:textAllCaps="true"
                 android:textStyle="bold"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="6dp"
+                android:padding="10dp"
                 android:text="@{consulta.descricao}"
-                android:textSize="20sp"
+                android:textSize="14sp"
                 android:textAllCaps="true"
-                android:textAlignment="center"
-                android:textStyle="bold"/>
+                />
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>

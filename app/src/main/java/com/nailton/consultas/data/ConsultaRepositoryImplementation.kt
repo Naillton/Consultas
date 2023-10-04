@@ -1,5 +1,6 @@
 package com.nailton.consultas.data
 
+import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
@@ -15,10 +16,8 @@ class ConsultaRepositoryImplementation (
     private val consultaCacheDataSource: ConsultaCacheDataSource
 ): ConsultaRepository {
     private var firebaseAuth: FirebaseAuth = Firebase.auth
-    private lateinit var firebaseUser: FirebaseUser
-    private val db = FirebaseFirestore.getInstance()
-    private val collectionReference = db.collection("Consultas")
-    var currentUser = firebaseAuth.currentUser
+    private var db = FirebaseFirestore.getInstance()
+    private var collectionReference = db.collection("Consultas")
 
     override suspend fun getConsultas(): List<Consulta>? {
         return getConsultasFromCache()
@@ -52,35 +51,70 @@ class ConsultaRepositoryImplementation (
         return firebaseAuth
     }
 
-    fun getConsultasFromFireabase(): List<Consulta> {
-        lateinit var consultaList: List<Consulta>
-
-        collectionReference.whereEqualTo("userId", firebaseUser.uid)
-            .get()
-            .addOnSuccessListener {
-                if (!it.isEmpty) {
-                    for (indices in it) {
-                        val consulta = Consulta(
-                            indices.data["userId"].toString(),
-                            indices.data["email"].toString(),
-                            indices.data["pacienteEmail"].toString(),
-                            indices.data["pacienteNome"].toString(),
-                            indices.data["titulo"].toString(),
-                            indices.data["descricao"].toString(),
-                            indices.data["isMedico"] as Boolean
-                        )
-                        consultaList = listOf(consulta)
-                    }
-                }
+    override suspend fun createQuery(
+        pacienteEmail: String,
+        pacienteNome: String,
+        titulo: String,
+        descricao: String
+    ): Boolean? {
+        val consulta = firebaseAuth.currentUser?.let {
+            it.email?.let { it1 ->
+                Consulta(
+                    userId = it.uid,
+                    email = it1,
+                    pacienteEmail,
+                    pacienteNome,
+                    titulo,
+                    descricao,
+                    isMedico = true
+                )
             }
+        }
+        if (consulta != null) {
+            try {
+                collectionReference.add(consulta)
+                    .addOnSuccessListener {
+                        return@addOnSuccessListener
+                    }.addOnFailureListener {
+                        return@addOnFailureListener
+                    }
+            } catch (_: Exception) { }
+            return true
+        } else {
+            return false
+        }
+    }
+
+    private suspend fun getConsultasFromFireabase(): List<Consulta> {
+        val consultaList: MutableList<Consulta> = arrayListOf()
+        try {
+            collectionReference.whereEqualTo("userId", firebaseAuth.currentUser?.uid)
+                .get()
+                .addOnSuccessListener {
+                    if (!it.isEmpty) {
+                        for (indices in it) {
+                            val consulta = Consulta(
+                                indices.data["userId"].toString(),
+                                indices.data["email"].toString(),
+                                indices.data["pacienteEmail"].toString(),
+                                indices.data["pacienteNome"].toString(),
+                                indices.data["titulo"].toString(),
+                                indices.data["descricao"].toString(),
+                                indices.data["medico"] as Boolean
+                            )
+                            consultaList.add(consulta)
+                        }
+                    }
+                }.await()
+        } catch (_: Exception) {}
         return consultaList
     }
 
-    suspend fun getConsultasFromRoom(): List<Consulta> {
+    private suspend fun getConsultasFromRoom(): List<Consulta> {
         lateinit var consultaList: List<Consulta>
         try {
             consultaList = consultaLocalDataSource.getConsultasFromDB()
-        } catch (_: Exception) {}
+        } catch (_: Exception) { }
 
         if (consultaList.isNotEmpty()) {
             return consultaList
@@ -93,7 +127,6 @@ class ConsultaRepositoryImplementation (
 
     private suspend fun getConsultasFromCache(): List<Consulta>? {
         lateinit var consultaList: List<Consulta>
-
         try {
             consultaList = consultaCacheDataSource.getConsultasFromCache()
         } catch (_: Exception) {}
