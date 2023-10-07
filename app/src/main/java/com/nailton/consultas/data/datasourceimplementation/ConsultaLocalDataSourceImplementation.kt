@@ -14,9 +14,10 @@ class ConsultaLocalDataSourceImplementation(
 ): ConsultaLocalDataSource {
 
     override suspend fun getConsultasFromDB(): List<Consulta> {
-        return CoroutineScope(Dispatchers.Default).async {
+        val func = CoroutineScope(Dispatchers.Default).async {
             consultaDao.getAllConsultas()
-        }.await()
+        }
+        return func.await()
     }
 
     override suspend fun saveConsultasDB(consultas: List<Consulta>) {

@@ -70,23 +70,46 @@ class ConsultaRepositoryImplementation (
                 )
             }
         }
-        if (consulta != null) {
-            try {
+        var isTrue: Boolean = false
+        try {
+            if (consulta != null) {
                 collectionReference.add(consulta)
                     .addOnSuccessListener {
                         return@addOnSuccessListener
                     }.addOnFailureListener {
                         return@addOnFailureListener
                     }
-            } catch (_: Exception) { }
-            return true
-        } else {
-            return false
+                isTrue = true
+            }
+        } catch (_: Exception) {
+            isTrue = false
         }
+        return isTrue
     }
 
-    private suspend fun getConsultasFromFireabase(): List<Consulta> {
-        val consultaList: MutableList<Consulta> = arrayListOf()
+    override suspend fun deleteQuery(consulta: Consulta): Boolean {
+        val collection = collectionReference
+            .whereEqualTo("userId", consulta.userId)
+            .whereEqualTo("pacienteEmail", consulta.pacienteEmail)
+            .get()
+            .await()
+        var isTrue: Boolean = false
+        if (collection.documents.isNotEmpty()) {
+            for (document in collection) {
+                isTrue = try {
+                    collectionReference.document(document.id).delete()
+                    true
+                } catch (_: Exception) {
+                    false
+                }
+            }
+        }
+        return isTrue
+    }
+
+    suspend fun getConsultasFromFireabase(): List<Consulta> {
+        lateinit var consultaList: List<Consulta>
+        val consultaMutableList: MutableList<Consulta> = arrayListOf()
         try {
             collectionReference.whereEqualTo("userId", firebaseAuth.currentUser?.uid)
                 .get()
@@ -102,15 +125,16 @@ class ConsultaRepositoryImplementation (
                                 indices.data["descricao"].toString(),
                                 indices.data["medico"] as Boolean
                             )
-                            consultaList.add(consulta)
+                            consultaMutableList.add(consulta)
                         }
                     }
                 }.await()
         } catch (_: Exception) {}
+        consultaList = consultaMutableList
         return consultaList
     }
 
-    private suspend fun getConsultasFromRoom(): List<Consulta> {
+    suspend fun getConsultasFromRoom(): List<Consulta> {
         lateinit var consultaList: List<Consulta>
         try {
             consultaList = consultaLocalDataSource.getConsultasFromDB()
@@ -125,11 +149,11 @@ class ConsultaRepositoryImplementation (
         return consultaList
     }
 
-    private suspend fun getConsultasFromCache(): List<Consulta>? {
+    suspend fun getConsultasFromCache(): List<Consulta>? {
         lateinit var consultaList: List<Consulta>
         try {
             consultaList = consultaCacheDataSource.getConsultasFromCache()
-        } catch (_: Exception) {}
+        } catch (_: Exception) { }
 
         if (consultaList.isNotEmpty()) {
             return consultaList

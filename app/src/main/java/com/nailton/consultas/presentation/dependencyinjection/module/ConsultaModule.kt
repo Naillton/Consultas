@@ -1,6 +1,7 @@
 package com.nailton.consultas.presentation.dependencyinjection.module
 
 import com.nailton.consultas.domain.usecases.CreateQueryUseCase
+import com.nailton.consultas.domain.usecases.DeleteQueryUseCase
 import com.nailton.consultas.domain.usecases.GetConsultaUseCase
 import com.nailton.consultas.domain.usecases.LoginUseCase
 import com.nailton.consultas.domain.usecases.OutApplicationUseCase
@@ -22,7 +23,8 @@ class ConsultaModule {
         loginUseCase: LoginUseCase,
         persistUseCase: PersistUseCase,
         outApplicationUseCase: OutApplicationUseCase,
-        createQueryUseCase: CreateQueryUseCase
+        createQueryUseCase: CreateQueryUseCase,
+        deleteQueryUseCase: DeleteQueryUseCase
     ): ViewModelFactory {
         return ViewModelFactory(
             getConsultaUseCase,
@@ -30,7 +32,8 @@ class ConsultaModule {
             loginUseCase,
             persistUseCase,
             outApplicationUseCase,
-            createQueryUseCase
+            createQueryUseCase,
+            deleteQueryUseCase
         )
     }
 }

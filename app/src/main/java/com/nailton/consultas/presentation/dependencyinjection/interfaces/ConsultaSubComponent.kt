@@ -3,6 +3,7 @@ package com.nailton.consultas.presentation.dependencyinjection.interfaces
 import com.nailton.consultas.MainActivity
 import com.nailton.consultas.presentation.dependencyinjection.annotations.ConsultaScope
 import com.nailton.consultas.presentation.dependencyinjection.module.ConsultaModule
+import com.nailton.consultas.screens.ConsultaAdapter
 import com.nailton.consultas.screens.LoginFragment
 import com.nailton.consultas.screens.MedicoFragment
 import com.nailton.consultas.screens.NovaConsultaFragment

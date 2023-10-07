@@ -18,4 +18,5 @@ interface ConsultaRepository {
         titulo: String,
         descricao: String,
     ): Boolean?
+    suspend fun deleteQuery(consulta: Consulta): Boolean
 }

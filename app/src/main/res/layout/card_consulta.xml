@@ -22,23 +22,40 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="10dp"
+            android:padding="8dp"
             tools:ignore="ExtraText">
+
+            <LinearLayout
+                android:layout_width="359dp"
+                android:layout_height="83dp"
+                android:layout_gravity="center"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                tools:ignore="ExtraText">
+
+                <TextView
+                    android:layout_width="305dp"
+                    android:layout_height="match_parent"
+                    android:padding="4dp"
+                    android:text="@{consulta.titulo.trim()}"
+                    android:textAllCaps="true"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/btnDel"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/baseline_delete_forever_24"
+                    android:backgroundTint="@color/greenF"
+                    android:contentDescription="floatinDel" />
+            </LinearLayout>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{consulta.titulo}"
                 android:padding="10dp"
-                android:textSize="20sp"
-                android:textAllCaps="true"
-                android:textStyle="bold"
-                />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:text="@{`Email Medico: `+consulta.email}"
+                android:text="@{`Email Medico: `+consulta.email.trim()}"
                 android:textSize="14sp"
                 android:textAllCaps="true"
                 android:textStyle="bold"
@@ -47,7 +64,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
-                android:text="@{`Email Paciente: `+consulta.pacienteEmail}"
+                android:text="@{`Email Paciente: `+consulta.pacienteEmail.trim()}"
                 android:textSize="14sp"
                 android:textAllCaps="true"
                 android:textStyle="bold"/>
@@ -55,7 +72,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
-                android:text="@{`Nome Paciente: `+consulta.pacienteNome}"
+                android:text="@{`Nome Paciente: `+consulta.pacienteNome.trim()}"
                 android:textSize="14sp"
                 android:textAllCaps="true"
                 android:textStyle="bold"/>
@@ -63,7 +80,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
-                android:text="@{consulta.descricao}"
+                android:text="@{consulta.descricao.trim()}"
                 android:textSize="14sp"
                 android:textAllCaps="true"
                 />

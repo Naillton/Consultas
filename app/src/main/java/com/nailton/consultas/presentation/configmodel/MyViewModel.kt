@@ -2,7 +2,9 @@ package com.nailton.consultas.presentation.configmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
+import com.nailton.consultas.data.Consulta
 import com.nailton.consultas.domain.usecases.CreateQueryUseCase
+import com.nailton.consultas.domain.usecases.DeleteQueryUseCase
 import com.nailton.consultas.domain.usecases.GetConsultaUseCase
 import com.nailton.consultas.domain.usecases.LoginUseCase
 import com.nailton.consultas.domain.usecases.OutApplicationUseCase
@@ -15,7 +17,8 @@ class MyViewModel(
     private val loginUseCase: LoginUseCase,
     private val persistUseCase: PersistUseCase,
     private val outApplicationUseCase: OutApplicationUseCase,
-    private val createQueryUseCase: CreateQueryUseCase
+    private val createQueryUseCase: CreateQueryUseCase,
+    private val deleteQueryUseCase: DeleteQueryUseCase
 ): ViewModel() {
     fun getConsultas() = liveData {
         val consultaList = getConsultaUseCase.getConsultas()
@@ -53,5 +56,10 @@ class MyViewModel(
             titulo,
             descricao)
         emit(createQuery)
+    }
+
+    fun deleteQuery(consulta: Consulta) = liveData {
+        val delete = deleteQueryUseCase.deleteQuery(consulta)
+        emit(delete)
     }
 }

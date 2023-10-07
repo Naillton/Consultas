@@ -2,6 +2,7 @@ package com.nailton.consultas.presentation.dependencyinjection.module
 
 import com.nailton.consultas.domain.repository.ConsultaRepository
 import com.nailton.consultas.domain.usecases.CreateQueryUseCase
+import com.nailton.consultas.domain.usecases.DeleteQueryUseCase
 import com.nailton.consultas.domain.usecases.GetConsultaUseCase
 import com.nailton.consultas.domain.usecases.LoginUseCase
 import com.nailton.consultas.domain.usecases.OutApplicationUseCase
@@ -40,5 +41,10 @@ class UseCaseModule {
     @Provides
     fun createUseCase(consultaRepository: ConsultaRepository): CreateQueryUseCase {
         return CreateQueryUseCase(consultaRepository)
+    }
+
+    @Provides
+    fun deleteUseCase(consultaRepository: ConsultaRepository): DeleteQueryUseCase {
+        return DeleteQueryUseCase(consultaRepository)
     }
 }

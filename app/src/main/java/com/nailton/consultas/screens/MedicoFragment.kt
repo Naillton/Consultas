@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.nailton.consultas.R
+import com.nailton.consultas.data.Consulta
 import com.nailton.consultas.databinding.FragmentMedicoBinding
 import com.nailton.consultas.presentation.configmodel.MyViewModel
 import com.nailton.consultas.presentation.configmodel.ViewModelFactory
@@ -25,10 +25,9 @@ class MedicoFragment : Fragment() {
 
     @Inject
     lateinit var factory: ViewModelFactory
-    private lateinit var viewModel: MyViewModel
+    lateinit var viewModel: MyViewModel
     private var _binding: FragmentMedicoBinding? = null
     private val binding get() = _binding!!
-    private lateinit var consultaAdapter: ConsultaAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,21 +55,32 @@ class MedicoFragment : Fragment() {
             outFloating.setOnClickListener {
                 outApplication()
             }
+
+            updtFloating.setOnClickListener {
+                updateConsultas()
+            }
+
+            ConsultaAdapter(::deleteQuery)
         }
-        getMovies()
         return binding.root
     }
 
+    override fun onResume() {
+        super.onResume()
+        getConsultas()
+        updateConsultas()
+    }
+
     @SuppressLint("NotifyDataSetChanged")
-    private fun getMovies() {
+    private fun getConsultas() {
         binding.apply {
             recyclerView.layoutManager = LinearLayoutManager(context)
             val result = viewModel.getConsultas()
-            val consultaAdapter = ConsultaAdapter()
+            val consultaAdapter = ConsultaAdapter(::deleteQuery)
             recyclerView.adapter = consultaAdapter
             progressBar.visibility = View.VISIBLE
             result.observe(viewLifecycleOwner) {
-                if (it != null) {
+                if (!it.isNullOrEmpty()) {
                     consultaAdapter.setList(it)
                     consultaAdapter.notifyDataSetChanged()
                     progressBar.visibility = View.GONE
@@ -85,6 +95,33 @@ class MedicoFragment : Fragment() {
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
+    private fun updateConsultas() {
+        binding.apply {
+            recyclerView.layoutManager = LinearLayoutManager(context)
+            val consultaAdapter = ConsultaAdapter(::deleteQuery)
+            recyclerView.adapter = consultaAdapter
+            val responseLiveData = viewModel.updateConsultas()
+            progressBar.visibility = View.VISIBLE
+            responseLiveData.observe(viewLifecycleOwner) {
+                if (it != null) {
+                    consultaAdapter.setList(it)
+                    consultaAdapter.notifyDataSetChanged()
+                    binding.progressBar.visibility = View.GONE
+                    getConsultas()
+                } else {
+                    binding.progressBar.visibility = View.GONE
+                    Toast.makeText(
+                        context,
+                        "Sem consultas",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
+        }
+    }
+
+
     private fun navigateToCreateQuery() {
         findNavController().navigate(R.id.action_medicoFragment_to_novaConsultaFragment)
     }
@@ -94,6 +131,27 @@ class MedicoFragment : Fragment() {
         result.observe(viewLifecycleOwner) {
             it?.signOut()
             findNavController().navigate(R.id.loginFragment)
+        }
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun deleteQuery(consulta: Consulta) {
+        val result = viewModel.deleteQuery(consulta)
+        result.observe(viewLifecycleOwner) {
+            if (it) {
+                Toast.makeText(
+                    context,
+                    "Consulta deletada",
+                    Toast.LENGTH_LONG
+                ).show()
+                updateConsultas()
+            } else {
+                Toast.makeText(
+                    context,
+                    "Nao foi possivel deletar a consulta",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
         }
     }
 }

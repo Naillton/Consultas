@@ -9,14 +9,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.nailton.consultas.R
 import com.nailton.consultas.data.Consulta
 import com.nailton.consultas.databinding.CardConsultaBinding
+import kotlin.reflect.KFunction1
 
-class ConsultaAdapter: RecyclerView.Adapter<ConsultaAdapter.MyViewHolder>(){
+class ConsultaAdapter(val delete: KFunction1<Consulta, Unit>) : RecyclerView.Adapter<ConsultaAdapter.MyViewHolder>() {
+
     class MyViewHolder(var binding: CardConsultaBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(consulta: Consulta) {
             binding.consulta = consulta
         }
     }
-
     private val consultaList = ArrayList<Consulta>()
 
     fun setList(consultas: List<Consulta>) {
@@ -52,6 +53,9 @@ class ConsultaAdapter: RecyclerView.Adapter<ConsultaAdapter.MyViewHolder>(){
             );
             gradientDrawable.cornerRadius = 0f;
             constraintCard.background = gradientDrawable
+            btnDel.setOnClickListener {
+                delete(consulta)
+            }
         }
         holder.bind(consulta)
     }
