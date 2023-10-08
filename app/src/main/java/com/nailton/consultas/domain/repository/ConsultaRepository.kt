@@ -19,4 +19,11 @@ interface ConsultaRepository {
         descricao: String,
     ): Boolean?
     suspend fun deleteQuery(consulta: Consulta): Boolean
+    suspend fun updateQuery(
+        userId: String,
+        pacienteEmail: String,
+        pacienteNome: String,
+        titulo: String,
+        descricao: String
+    ): Boolean
 }

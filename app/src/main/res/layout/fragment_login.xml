@@ -7,35 +7,47 @@
         android:id="@+id/constraintLogin"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="@+id/edtTextPass"
-        app:layout_constraintTop_toBottomOf="@+id/edtTextPass"
         tools:context=".MainActivity">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/desenho"
+            android:contentDescription="ilustrateImage"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints" />
 
         <EditText
             android:id="@+id/edtTextEmail"
-            android:layout_width="340dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="218dp"
-            android:layout_marginBottom="271dp"
+            android:layout_marginTop="212dp"
             android:autofillHints="emailAddress"
             android:hint="Enter your Email"
+            android:textColorHint="@color/black"
             android:inputType="textEmailAddress"
             android:paddingStart="10dp"
+            android:layout_marginHorizontal="14dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.492"
+            app:layout_constraintHorizontal_bias="0.507"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="MissingConstraints,RtlSymmetry" />
 
         <EditText
             android:id="@+id/edtTextPass"
-            android:layout_width="340dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="61dp"
             android:autofillHints="password"
             android:hint="Enter your password"
             android:inputType="textPassword"
             android:paddingStart="10dp"
+            android:textColorHint="@color/black"
+            android:layout_marginHorizontal="14dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/edtTextEmail" />

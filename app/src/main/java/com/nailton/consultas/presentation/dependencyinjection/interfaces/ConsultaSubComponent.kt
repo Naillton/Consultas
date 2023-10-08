@@ -7,6 +7,7 @@ import com.nailton.consultas.screens.ConsultaAdapter
 import com.nailton.consultas.screens.LoginFragment
 import com.nailton.consultas.screens.MedicoFragment
 import com.nailton.consultas.screens.NovaConsultaFragment
+import com.nailton.consultas.screens.UpdateFragment
 import dagger.Subcomponent
 
 @ConsultaScope
@@ -16,6 +17,7 @@ interface ConsultaSubComponent {
     fun inject(loginFragment: LoginFragment)
     fun injectMedico(medicoFragment: MedicoFragment)
     fun injectQuery(novaConsultaFragment: NovaConsultaFragment)
+    fun injectUpdate(updateFragment: UpdateFragment)
 
     @Subcomponent.Factory
     interface Factory {

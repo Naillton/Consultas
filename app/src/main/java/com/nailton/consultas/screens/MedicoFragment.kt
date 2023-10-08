@@ -1,6 +1,7 @@
 package com.nailton.consultas.screens
 
 import android.annotation.SuppressLint
+import android.content.SharedPreferences
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
@@ -42,7 +43,7 @@ class MedicoFragment : Fragment() {
             val gradientDrawable = GradientDrawable(
                 GradientDrawable.Orientation.TR_BL,
                 intArrayOf(
-                    Color.parseColor("#4DA0F3"),
+                    Color.parseColor("#FFC55C"),
                     Color.parseColor("#8DC7F3"))
             );
             gradientDrawable.cornerRadius = 0f;
@@ -60,7 +61,7 @@ class MedicoFragment : Fragment() {
                 updateConsultas()
             }
 
-            ConsultaAdapter(::deleteQuery)
+            ConsultaAdapter(::deleteQuery, ::updateQuery)
         }
         return binding.root
     }
@@ -76,7 +77,7 @@ class MedicoFragment : Fragment() {
         binding.apply {
             recyclerView.layoutManager = LinearLayoutManager(context)
             val result = viewModel.getConsultas()
-            val consultaAdapter = ConsultaAdapter(::deleteQuery)
+            val consultaAdapter = ConsultaAdapter(::deleteQuery, ::updateQuery)
             recyclerView.adapter = consultaAdapter
             progressBar.visibility = View.VISIBLE
             result.observe(viewLifecycleOwner) {
@@ -99,7 +100,7 @@ class MedicoFragment : Fragment() {
     private fun updateConsultas() {
         binding.apply {
             recyclerView.layoutManager = LinearLayoutManager(context)
-            val consultaAdapter = ConsultaAdapter(::deleteQuery)
+            val consultaAdapter = ConsultaAdapter(::deleteQuery, :: updateQuery)
             recyclerView.adapter = consultaAdapter
             val responseLiveData = viewModel.updateConsultas()
             progressBar.visibility = View.VISIBLE
@@ -153,5 +154,15 @@ class MedicoFragment : Fragment() {
                 ).show()
             }
         }
+    }
+
+    fun updateQuery(consulta: Consulta) {
+        val bundle: Bundle = Bundle()
+        bundle.putString("userId", consulta.userId)
+        bundle.putString("pacienteEmail", consulta.pacienteEmail)
+        bundle.putString("pacienteNome", consulta.pacienteNome)
+        bundle.putString("titulo", consulta.titulo)
+        bundle.putString("descricao", consulta.descricao)
+        findNavController().navigate(R.id.action_medicoFragment_to_updateFragment, bundle)
     }
 }

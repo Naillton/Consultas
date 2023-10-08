@@ -10,67 +10,53 @@
         tools:context=".screens.NovaConsultaFragment">
 
         <EditText
-            android:id="@+id/pacienteEmail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="70dp"
-            android:hint="Digite o email do paciente"
-            android:padding="10dp"
-            android:layout_marginHorizontal="14dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <EditText
             android:id="@+id/pacienteNome"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
+            android:layout_marginHorizontal="14dp"
+            android:layout_marginTop="184dp"
             android:hint="Digite o nome do paciente"
             android:padding="10dp"
-            android:layout_marginHorizontal="14dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/pacienteEmail"
-            />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints" />
 
         <EditText
             android:id="@+id/titulo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="14dp"
+            android:layout_marginTop="20dp"
             android:hint="Digite o titulo da consulta"
             android:padding="10dp"
-            android:layout_marginHorizontal="14dp"
-            android:layout_marginTop="14dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/pacienteNome"
-            />
+            app:layout_constraintTop_toBottomOf="@+id/pacienteNome" />
 
         <EditText
             android:id="@+id/descricao"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
+            android:layout_marginHorizontal="14dp"
+            android:layout_marginTop="20dp"
             android:hint="Digite a descricao da consulta"
             android:padding="10dp"
-            android:layout_marginHorizontal="14dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/titulo" />
 
         <Button
-            android:id="@+id/btnQuery"
+            android:id="@+id/btnUpdate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="84dp"
-            android:text="Create Query"
-            android:textAllCaps="true"
+            android:layout_marginTop="48dp"
             android:backgroundTint="@color/purple"
+            android:text="Update Query"
+            android:textAllCaps="true"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/descricao"
             tools:ignore="MissingConstraints" />

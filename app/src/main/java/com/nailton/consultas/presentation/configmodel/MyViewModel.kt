@@ -10,6 +10,7 @@ import com.nailton.consultas.domain.usecases.LoginUseCase
 import com.nailton.consultas.domain.usecases.OutApplicationUseCase
 import com.nailton.consultas.domain.usecases.PersistUseCase
 import com.nailton.consultas.domain.usecases.UpdateConsultasUseCase
+import com.nailton.consultas.domain.usecases.UpdateDocumentUseCase
 
 class MyViewModel(
     private val getConsultaUseCase: GetConsultaUseCase,
@@ -18,7 +19,8 @@ class MyViewModel(
     private val persistUseCase: PersistUseCase,
     private val outApplicationUseCase: OutApplicationUseCase,
     private val createQueryUseCase: CreateQueryUseCase,
-    private val deleteQueryUseCase: DeleteQueryUseCase
+    private val deleteQueryUseCase: DeleteQueryUseCase,
+    private val updateDocumentUseCase: UpdateDocumentUseCase
 ): ViewModel() {
     fun getConsultas() = liveData {
         val consultaList = getConsultaUseCase.getConsultas()
@@ -61,5 +63,19 @@ class MyViewModel(
     fun deleteQuery(consulta: Consulta) = liveData {
         val delete = deleteQueryUseCase.deleteQuery(consulta)
         emit(delete)
+    }
+
+    fun updateQuery(userId: String,
+                    pacienteEmail: String,
+                    pacienteNome: String,
+                    titulo: String,
+                    descricao: String) = liveData {
+        val update = updateDocumentUseCase.updateDocument(
+            userId,
+            pacienteEmail,
+            pacienteNome,
+            titulo,
+            descricao)
+        emit(update)
     }
 }

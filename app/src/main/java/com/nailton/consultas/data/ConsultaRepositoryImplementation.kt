@@ -107,6 +107,41 @@ class ConsultaRepositoryImplementation (
         return isTrue
     }
 
+    override suspend fun updateQuery(
+        userId: String,
+        pacienteEmail: String,
+        pacienteNome: String,
+        titulo: String,
+        descricao: String
+    ): Boolean {
+        Log.i("TAGY", pacienteNome)
+        Log.i("TAGY", titulo)
+        Log.i("TAGY", descricao)
+        val collection = collectionReference
+            .whereEqualTo("userId", userId)
+            .whereEqualTo("pacienteEmail", pacienteEmail)
+            .get()
+            .await()
+        var isTrue: Boolean = false
+        if (collection.documents.isNotEmpty()) {
+            for (document in collection) {
+                isTrue = try {
+                    collectionReference.document(document.id)
+                        .update(
+                            "pacienteNome", pacienteNome,
+                            "titulo", titulo,
+                            "descricao", descricao
+                        )
+                    true
+                } catch (_: Exception) {
+                    false
+
+                }
+            }
+        }
+        return isTrue
+    }
+
     suspend fun getConsultasFromFireabase(): List<Consulta> {
         lateinit var consultaList: List<Consulta>
         val consultaMutableList: MutableList<Consulta> = arrayListOf()

@@ -4,37 +4,38 @@ import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.util.Log
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.nailton.consultas.R
 import com.nailton.consultas.databinding.FragmentNovaConsultaBinding
+import com.nailton.consultas.databinding.FragmentUpdateBinding
 import com.nailton.consultas.presentation.configmodel.MyViewModel
 import com.nailton.consultas.presentation.configmodel.ViewModelFactory
 import com.nailton.consultas.presentation.dependencyinjection.interfaces.Injector
 import javax.inject.Inject
 
-class NovaConsultaFragment : Fragment() {
+class UpdateFragment : Fragment() {
 
     @Inject
     lateinit var factory: ViewModelFactory
     private lateinit var viewModel: MyViewModel
-    private var _binding: FragmentNovaConsultaBinding? = null
+    private var _binding: FragmentUpdateBinding? = null
     private val binding get() = _binding!!
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         _binding = DataBindingUtil.inflate(
-            inflater, R.layout.fragment_nova_consulta, container, false)
-        (activity?.application as Injector).createConsultaSubComponent().injectQuery(this)
+            inflater, R.layout.fragment_update, container, false
+        )
+        (activity?.application as Injector).createConsultaSubComponent().injectUpdate(this)
 
         viewModel = ViewModelProvider(this, factory)[MyViewModel::class.java]
         binding.apply {
@@ -47,52 +48,55 @@ class NovaConsultaFragment : Fragment() {
             gradientDrawable.cornerRadius = 0f
             newQuery.background = gradientDrawable
 
-            btnQuery.setOnClickListener {
-                val email = pacienteEmail.text.trim().toString()
-                val nome = pacienteNome.text.trim().toString()
-                val title = titulo.text.trim().toString()
-                val desc = descricao.text.trim().toString()
-                createQuery(
-                    email,
-                    nome,
-                    title,
-                    desc)
+            val userId = arguments?.getString("userId")
+            val pacienteEmail = arguments?.getString("pacienteEmail")
+            titulo.setText(arguments?.getString("titulo"))
+            pacienteNome.setText(arguments?.getString("pacienteNome").toString())
+            descricao.setText(arguments?.getString("descricao").toString())
+            Log.i("TAGY", pacienteNome.toString().trim())
+            Log.i("TAGY", titulo.toString().trim())
+            Log.i("TAGY", descricao.toString().trim())
+            btnUpdate.setOnClickListener {
+                updateQuery(
+                    userId!!,
+                    pacienteEmail!!,
+                    pacienteNome.text.toString(),
+                    titulo.text.toString(),
+                    descricao.text.toString()
+                )
             }
         }
-
         return binding.root
     }
 
-    private fun createQuery(
+    private fun updateQuery(
+        userId: String,
         pacienteEmail: String,
         pacienteNome: String,
         titulo: String,
-        descricao: String) {
-        val result = viewModel.createQuery(
-            pacienteEmail,
-            pacienteNome,
-            titulo,
-            descricao
-        )
-        val valid = validationCamps(
-            pacienteEmail,
-            pacienteNome,
-            titulo,
-            descricao
-        )
+        descricao: String
+    ) {
+        val valid = validationCamps(pacienteNome, titulo, descricao)
         if (valid) {
+            val result = viewModel.updateQuery(
+                userId,
+                pacienteEmail,
+                pacienteNome,
+                titulo,
+                descricao
+            )
             result.observe(viewLifecycleOwner) {
-                if (it == true) {
+                if (it) {
                     Toast.makeText(
                         context,
-                        "Consulta Criada",
+                        "Consulta Atualizada",
                         Toast.LENGTH_LONG
                     ).show()
                     findNavController().navigate(R.id.medicoFragment)
                 } else {
                     Toast.makeText(
                         context,
-                        "Erro ao criar consulta",
+                        "Nao foi atualizar deletar a consulta",
                         Toast.LENGTH_LONG
                     ).show()
                 }
@@ -101,12 +105,10 @@ class NovaConsultaFragment : Fragment() {
     }
 
     private fun validationCamps(
-        pacienteEmail: String,
         pacienteNome: String,
         titulo: String,
         descricao: String): Boolean {
         if (
-            pacienteEmail.length < 11 ||
             pacienteNome.length < 3 ||
             titulo.length < 6 ||
             descricao.length < 10) {
@@ -119,5 +121,4 @@ class NovaConsultaFragment : Fragment() {
         }
         return true
     }
-
 }

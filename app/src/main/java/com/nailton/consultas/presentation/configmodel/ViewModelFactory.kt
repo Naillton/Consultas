@@ -9,6 +9,7 @@ import com.nailton.consultas.domain.usecases.LoginUseCase
 import com.nailton.consultas.domain.usecases.OutApplicationUseCase
 import com.nailton.consultas.domain.usecases.PersistUseCase
 import com.nailton.consultas.domain.usecases.UpdateConsultasUseCase
+import com.nailton.consultas.domain.usecases.UpdateDocumentUseCase
 import java.lang.IllegalArgumentException
 
 
@@ -19,7 +20,8 @@ class ViewModelFactory(
     private val persistUseCase: PersistUseCase,
     private val outApplicationUseCase: OutApplicationUseCase,
     private val createQueryUseCase: CreateQueryUseCase,
-    private val deleteQueryUseCase: DeleteQueryUseCase
+    private val deleteQueryUseCase: DeleteQueryUseCase,
+    private val updateDocumentUseCase: UpdateDocumentUseCase
 ): ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(MyViewModel::class.java)) {
@@ -30,7 +32,8 @@ class ViewModelFactory(
                 persistUseCase,
                 outApplicationUseCase,
                 createQueryUseCase,
-                deleteQueryUseCase) as T
+                deleteQueryUseCase,
+                updateDocumentUseCase) as T
         }
         throw IllegalArgumentException("View Model not found")
     }

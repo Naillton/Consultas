@@ -8,6 +8,7 @@ import com.nailton.consultas.domain.usecases.LoginUseCase
 import com.nailton.consultas.domain.usecases.OutApplicationUseCase
 import com.nailton.consultas.domain.usecases.PersistUseCase
 import com.nailton.consultas.domain.usecases.UpdateConsultasUseCase
+import com.nailton.consultas.domain.usecases.UpdateDocumentUseCase
 import dagger.Module
 import dagger.Provides
 
@@ -46,5 +47,10 @@ class UseCaseModule {
     @Provides
     fun deleteUseCase(consultaRepository: ConsultaRepository): DeleteQueryUseCase {
         return DeleteQueryUseCase(consultaRepository)
+    }
+
+    @Provides
+    fun updateUseCase(consultaRepository: ConsultaRepository): UpdateDocumentUseCase {
+        return UpdateDocumentUseCase(consultaRepository)
     }
 }

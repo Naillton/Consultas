@@ -2,6 +2,7 @@ package com.nailton.consultas.screens
 
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -11,7 +12,10 @@ import com.nailton.consultas.data.Consulta
 import com.nailton.consultas.databinding.CardConsultaBinding
 import kotlin.reflect.KFunction1
 
-class ConsultaAdapter(val delete: KFunction1<Consulta, Unit>) : RecyclerView.Adapter<ConsultaAdapter.MyViewHolder>() {
+class ConsultaAdapter(
+    val delete: KFunction1<Consulta, Unit>,
+    val update: KFunction1<Consulta, Unit>
+    ) : RecyclerView.Adapter<ConsultaAdapter.MyViewHolder>() {
 
     class MyViewHolder(var binding: CardConsultaBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(consulta: Consulta) {
@@ -55,6 +59,9 @@ class ConsultaAdapter(val delete: KFunction1<Consulta, Unit>) : RecyclerView.Ada
             constraintCard.background = gradientDrawable
             btnDel.setOnClickListener {
                 delete(consulta)
+            }
+            constraintCard.setOnClickListener {
+                update(consulta)
             }
         }
         holder.bind(consulta)

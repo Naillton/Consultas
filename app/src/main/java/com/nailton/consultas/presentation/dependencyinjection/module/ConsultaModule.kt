@@ -7,6 +7,7 @@ import com.nailton.consultas.domain.usecases.LoginUseCase
 import com.nailton.consultas.domain.usecases.OutApplicationUseCase
 import com.nailton.consultas.domain.usecases.PersistUseCase
 import com.nailton.consultas.domain.usecases.UpdateConsultasUseCase
+import com.nailton.consultas.domain.usecases.UpdateDocumentUseCase
 import com.nailton.consultas.presentation.configmodel.ViewModelFactory
 import com.nailton.consultas.presentation.dependencyinjection.annotations.ConsultaScope
 import dagger.Module
@@ -24,7 +25,8 @@ class ConsultaModule {
         persistUseCase: PersistUseCase,
         outApplicationUseCase: OutApplicationUseCase,
         createQueryUseCase: CreateQueryUseCase,
-        deleteQueryUseCase: DeleteQueryUseCase
+        deleteQueryUseCase: DeleteQueryUseCase,
+        updateDocumentUseCase: UpdateDocumentUseCase
     ): ViewModelFactory {
         return ViewModelFactory(
             getConsultaUseCase,
@@ -33,7 +35,8 @@ class ConsultaModule {
             persistUseCase,
             outApplicationUseCase,
             createQueryUseCase,
-            deleteQueryUseCase
+            deleteQueryUseCase,
+            updateDocumentUseCase
         )
     }
 }

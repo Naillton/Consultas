@@ -11,31 +11,12 @@
         android:label="fragment_medico"
         tools:layout="@layout/fragment_medico" >
         <action
-            android:id="@+id/action_medicoFragment_to_perfilMedicoFragment"
-            app:destination="@id/perfilMedicoFragment" />
-        <action
             android:id="@+id/action_medicoFragment_to_novaConsultaFragment"
             app:destination="@id/novaConsultaFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/pacienteFragment"
-        android:name="com.nailton.consultas.screens.pacienteFragment"
-        android:label="fragment_paciente"
-        tools:layout="@layout/fragment_paciente" >
         <action
-            android:id="@+id/action_pacienteFragment_to_perfilPacienteFragment"
-            app:destination="@id/perfilPacienteFragment" />
+            android:id="@+id/action_medicoFragment_to_updateFragment"
+            app:destination="@id/updateFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/perfilPacienteFragment"
-        android:name="com.nailton.consultas.screens.PerfilPacienteFragment"
-        android:label="fragment_perfil_paciente"
-        tools:layout="@layout/fragment_perfil_paciente" />
-    <fragment
-        android:id="@+id/perfilMedicoFragment"
-        android:name="com.nailton.consultas.screens.PerfilMedicoFragment"
-        android:label="fragment_perfil_medico"
-        tools:layout="@layout/fragment_perfil_medico" />
     <fragment
         android:id="@+id/novaConsultaFragment"
         android:name="com.nailton.consultas.screens.NovaConsultaFragment"
@@ -49,8 +30,10 @@
         <action
             android:id="@+id/action_loginFragment_to_medicoFragment"
             app:destination="@id/medicoFragment" />
-        <action
-            android:id="@+id/action_loginFragment_to_pacienteFragment"
-            app:destination="@id/pacienteFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/updateFragment"
+        android:name="com.nailton.consultas.screens.UpdateFragment"
+        android:label="fragment_update"
+        tools:layout="@layout/fragment_update" />
 </navigation>

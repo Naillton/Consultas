@@ -40,7 +40,7 @@ class LoginFragment : Fragment() {
             val gradientDrawable = GradientDrawable(
                 GradientDrawable.Orientation.TR_BL,
                 intArrayOf(
-                    Color.parseColor("#4DA0F3"),
+                    Color.parseColor("#FFC55C"),
                     Color.parseColor("#8DC7F3"))
             );
             gradientDrawable.cornerRadius = 0f;
