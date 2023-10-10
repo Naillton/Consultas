@@ -1,7 +1,7 @@
 package com.nailton.consultas.screens
 
 import android.annotation.SuppressLint
-import android.content.SharedPreferences
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.nailton.consultas.MainActivity
 import com.nailton.consultas.R
 import com.nailton.consultas.data.Consulta
 import com.nailton.consultas.databinding.FragmentMedicoBinding
@@ -100,7 +101,7 @@ class MedicoFragment : Fragment() {
     private fun updateConsultas() {
         binding.apply {
             recyclerView.layoutManager = LinearLayoutManager(context)
-            val consultaAdapter = ConsultaAdapter(::deleteQuery, :: updateQuery)
+            val consultaAdapter = ConsultaAdapter(::deleteQuery, ::updateQuery)
             recyclerView.adapter = consultaAdapter
             val responseLiveData = viewModel.updateConsultas()
             progressBar.visibility = View.VISIBLE
@@ -156,7 +157,7 @@ class MedicoFragment : Fragment() {
         }
     }
 
-    fun updateQuery(consulta: Consulta) {
+    private fun updateQuery(consulta: Consulta) {
         val bundle: Bundle = Bundle()
         bundle.putString("userId", consulta.userId)
         bundle.putString("pacienteEmail", consulta.pacienteEmail)

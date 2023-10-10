@@ -53,9 +53,6 @@ class UpdateFragment : Fragment() {
             titulo.setText(arguments?.getString("titulo"))
             pacienteNome.setText(arguments?.getString("pacienteNome").toString())
             descricao.setText(arguments?.getString("descricao").toString())
-            Log.i("TAGY", pacienteNome.toString().trim())
-            Log.i("TAGY", titulo.toString().trim())
-            Log.i("TAGY", descricao.toString().trim())
             btnUpdate.setOnClickListener {
                 updateQuery(
                     userId!!,

@@ -21,71 +21,87 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
             android:orientation="vertical"
             tools:ignore="ExtraText">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="@{consulta.titulo.trim()}"
+                android:maxLines="2"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="@{`Email Medico: `+consulta.email.trim()}"
+                android:textAllCaps="true"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="@{`Email Paciente: `+consulta.pacienteEmail.trim()}"
+                android:textAllCaps="true"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="@{`Nome Paciente: `+consulta.pacienteNome.trim()}"
+                android:textAllCaps="true"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="@{consulta.descricao.trim()}"
+                android:textAllCaps="true"
+                android:textSize="14sp"
+                />
             <LinearLayout
-                android:layout_width="359dp"
-                android:layout_height="83dp"
-                android:layout_gravity="center"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                tools:ignore="ExtraText">
-
-                <TextView
-                    android:layout_width="305dp"
-                    android:layout_height="match_parent"
-                    android:padding="10dp"
-                    android:textAlignment="center"
-                    android:text="@{consulta.titulo.trim()}"
-                    android:textAllCaps="true"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                >
                 <Button
                     android:id="@+id/btnDel"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
+                    android:layout_marginHorizontal="40dp"
+                    android:layout_marginVertical="10dp"
                     android:background="@drawable/baseline_delete_forever_24"
                     android:backgroundTint="@color/greenF"
                     android:contentDescription="floatinDel" />
+
+                <Button
+                    android:id="@+id/btnShare"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginHorizontal="40dp"
+                    android:layout_marginVertical="10dp"
+                    android:background="@drawable/baseline_share_24"
+                    android:backgroundTint="@color/greenF"
+                    android:contentDescription="floatingShare"
+                    />
             </LinearLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:text="@{`Email Medico: `+consulta.email.trim()}"
-                android:textSize="14sp"
-                android:textAllCaps="true"
-                android:textStyle="bold"
-                />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:text="@{`Email Paciente: `+consulta.pacienteEmail.trim()}"
-                android:textSize="14sp"
-                android:textAllCaps="true"
-                android:textStyle="bold"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:text="@{`Nome Paciente: `+consulta.pacienteNome.trim()}"
-                android:textSize="14sp"
-                android:textAllCaps="true"
-                android:textStyle="bold"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:text="@{consulta.descricao.trim()}"
-                android:textSize="14sp"
-                android:textAllCaps="true"
-                />
         </LinearLayout>
-
     </androidx.cardview.widget.CardView>
 </layout>

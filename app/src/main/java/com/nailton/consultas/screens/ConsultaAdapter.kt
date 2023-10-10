@@ -1,9 +1,10 @@
 package com.nailton.consultas.screens
 
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
-import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -15,7 +16,7 @@ import kotlin.reflect.KFunction1
 class ConsultaAdapter(
     val delete: KFunction1<Consulta, Unit>,
     val update: KFunction1<Consulta, Unit>
-    ) : RecyclerView.Adapter<ConsultaAdapter.MyViewHolder>() {
+) : RecyclerView.Adapter<ConsultaAdapter.MyViewHolder>() {
 
     class MyViewHolder(var binding: CardConsultaBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(consulta: Consulta) {
@@ -60,8 +61,20 @@ class ConsultaAdapter(
             btnDel.setOnClickListener {
                 delete(consulta)
             }
+
             constraintCard.setOnClickListener {
                 update(consulta)
+            }
+
+            btnShare.setOnClickListener {
+                val share = Intent.createChooser(Intent().apply {
+                    action = Intent.ACTION_SEND
+                    putExtra(Intent.EXTRA_EMAIL, arrayOf(consulta.pacienteEmail))
+                    putExtra(Intent.EXTRA_SUBJECT, consulta.titulo)
+                    putExtra(Intent.EXTRA_TEXT, "CONSULTA: ${consulta.descricao}")
+                    type = "text/plain"
+                }, null)
+                it.context.startActivity(share)
             }
         }
         holder.bind(consulta)
